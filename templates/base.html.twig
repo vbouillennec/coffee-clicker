@@ -8,9 +8,14 @@
         {% endblock %}
 
         {% block javascripts %}
+            <script src="https://cdn.tailwindcss.com"></script>
         {% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body class="dark:bg-gray-900">
+        {% block header %}
+            {% include('partials/_header.html.twig') %}
+        {% endblock %}
+        {% block body %}
+        {% endblock %}
     </body>
 </html>
