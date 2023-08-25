@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Coffee Clicker - Players{% endblock %}
+
+{% block body %}
+
+<div class="px-6 text-white">
+    <h1 class="pb-4 text-3xl">All players: </h1>
+
+    <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+        {% for player in players %}
+            <li class="pt-2 pb-2 sm:pb-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-1 min-w-0">
+                        <p class="pb-1 text-sm font-medium text-gray-900 truncate dark:text-white">
+                        {{ player.pseudo }}
+                        </p>
+                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                        {{ player.email }}
+                        </p>
+                    </div>
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        {{ player.totalPoints }} points
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    
+</div>
+{% endblock %}
