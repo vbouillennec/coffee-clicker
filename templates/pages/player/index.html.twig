@@ -1,31 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Coffee Clicker - Players{% endblock %}
+{% block title %}Coffee Clicker - Players
+{% endblock %}
 
 {% block body %}
 
-<div class="px-6 text-white">
-    <h1 class="pb-4 text-3xl">All players: </h1>
+	<div class="flex flex-col items-center align-center justify-center text-white">
+		<div class="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-4 space-y-4">
+			{% for message in app.flashes('success') %}
+				<div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+					<span class="font-medium">{{ message }}</span>
+				</div>
+			{% endfor %}
+			<div class="flex justify-between align-middle items-center">
+				<h1 class="py-2 font-semibold text-2xl">All players ({{ players.getTotalItemCount }})
+				</h1>
+				<a class="text-white bg-gradient-to-br from-amber-600 to-orange-900  hover:from-amber-700 hover:to-orange-950 focus:ring-4 focus:outline-none focus:ring-orange-950 dark:focus:ring-amber-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center" href="{{ path('player.new') }}">
+					Create a player
+				</a>
+			</div>
 
-    <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-        {% for player in players %}
-            <li class="pt-2 pb-2 sm:pb-4">
-                <div class="flex items-center space-x-4">
-                    <div class="flex-1 min-w-0">
-                        <p class="pb-1 text-sm font-medium text-gray-900 truncate dark:text-white">
-                        {{ player.pseudo }}
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                        {{ player.email }}
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        {{ player.totalPoints }} points
-                    </div>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
-    
-</div>
+			<ul class="px-2 divide-y divide-gray-200 dark:divide-gray-700">
+				{% for player in players %}
+					<li class="">
+						<a href="{{ path('player.edit', {'id': player.id}) }}" class="flex items-center space-x-4 hover:bg-gray-800 p-2">
+							<div class="flex-1 min-w-0">
+								<p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+									{{ player.pseudo }}
+								</p>
+								<p class="text-sm text-gray-500 truncate dark:text-gray-400">
+									{{ player.email }}
+								</p>
+							</div>
+							<div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+								{{ player.totalPoints }}
+								points
+							</div>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+			<div class="navigation flex justify-center text-gray-900 pb-6">
+				{{ knp_pagination_render(players) }}
+			</div>
+		</div>
+	</div>
 {% endblock %}
