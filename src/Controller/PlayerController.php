@@ -89,11 +89,6 @@ class PlayerController extends AbstractController
 		EntityManagerInterface $manager
 	): Response {
 		if (!$player) {
-			// throw $this->createNotFoundException('Player not found');
-			$this->addFlash(
-				'warning',
-				"Players doesn't exist"
-			);
 			return $this->redirectToRoute('player.index');
 		}
 

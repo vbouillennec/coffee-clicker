@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Player;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -24,12 +25,24 @@ class AppFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $player = new Player();
             $player->setPseudo($this->faker->userName() . "_0$i")
                 ->setEmail($this->faker->email())
                 ->setTotalPoints(rand(0, 1000));
+
             $manager->persist($player);
+        }
+
+        for ($i = 1; $i <= 10; $i++) {
+            $user = new User();
+            $user->setUsername($this->faker->userName())
+                ->setEmail($this->faker->email())
+                ->setRoles(['ROLE_USER'])
+                ->setNumberOfPoints(rand(0, 1000))
+                ->setPlainPassword('password');
+
+            $manager->persist($user);
         }
 
         $manager->flush();
