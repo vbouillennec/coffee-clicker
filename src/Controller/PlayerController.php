@@ -11,10 +11,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class PlayerController extends AbstractController
 {
 	#[Route('/players', name: 'player.index', methods: ['GET'])]
+	#[IsGranted('ROLE_USER', message: 'You need to log in to access the players leaderboard')]
 	public function index(PlayerRepository $playerRepo, PaginatorInterface $paginator, Request $request): Response
 	{
 		$players = $paginator->paginate(
@@ -22,7 +24,7 @@ class PlayerController extends AbstractController
 			$request->query->getInt('page', 1),
 			10,
 			[
-				'defaultSortFieldName' => 'createdAt',
+				'defaultSortFieldName' => 'totalPoints',
 				'defaultSortDirection' => 'desc'
 			]
 		);

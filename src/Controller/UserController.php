@@ -5,39 +5,43 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserPasswordType;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class UserController extends AbstractController
 {
-    #[Route('/user/edit/{id}', name: 'user.edit', methods: ['GET', 'POST'])]
-    public function index(
+    #[Route('/admin/users', name: 'user.index', methods: ['GET'])]
+    public function index(UserRepository $userRepo, PaginatorInterface $paginator, Request $request): Response
+    {
+        $users = $paginator->paginate(
+            $userRepo->findAll(),
+            $request->query->getInt('page', 1),
+            10,
+            [
+                'defaultSortFieldName' => 'createdAt',
+                'defaultSortDirection' => 'asc'
+            ]
+        );
+        return $this->render('pages/user/index.html.twig', [
+            'users' => $users,
+        ]);
+    }
+
+    #[Route('/user/{username}/edit', name: 'user.edit', methods: ['GET', 'POST'])]
+    #[IsGranted('edit', 'user', 'Your not allowed to edit this user')]
+    public function edit(
         User $user,
         Request $request,
         EntityManagerInterface $manager,
         UserPasswordHasherInterface $passwordHasher
     ): Response {
-
-        if (!$this->getUser()) {
-            dd($this->getUser());
-            $this->addFlash(
-                'danger',
-                "You are not connected"
-            );
-            return $this->redirectToRoute('login.index');
-        }
-        if ($this->getUser() !== $user) {
-            $this->addFlash(
-                'danger',
-                "You can't edit this user"
-            );
-            return $this->redirectToRoute('login.index');
-        }
-
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -63,35 +67,19 @@ class UserController extends AbstractController
         }
 
         return $this->render('pages/user/edit.html.twig', [
-            'userID' => $user->getId(),
+            'username' => $user->getUsername(),
             'form' => $form->createView()
         ]);
     }
 
-    #[Route('/user/password/{id}', name: 'user.password', methods: ['GET', 'POST'])]
+    #[Route('/user/{username}/password', name: 'user.password', methods: ['GET', 'POST'])]
+    #[IsGranted('edit', 'user')]
     public function editPassword(
         User $user,
         Request $request,
         EntityManagerInterface $manager,
         UserPasswordHasherInterface $passwordHasher
     ): Response {
-
-        if (!$this->getUser()) {
-            dd($this->getUser());
-            $this->addFlash(
-                'danger',
-                "You are not connected"
-            );
-            return $this->redirectToRoute('login.index');
-        }
-        if ($this->getUser() !== $user) {
-            $this->addFlash(
-                'danger',
-                "You can't edit this user"
-            );
-            return $this->redirectToRoute('login.index');
-        }
-
         $form = $this->createForm(UserPasswordType::class);
 
         $form->handleRequest($request);
@@ -119,7 +107,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('pages/user/password.html.twig', [
-            'userID' => $user->getId(),
+            'username' => $user->getUsername(),
             'form' => $form->createView()
         ]);
     }

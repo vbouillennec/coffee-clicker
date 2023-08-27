@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Coffee Clicker - Players
+{% block title %}Coffee Clicker - Users
 {% endblock %}
 
 {% block body %}
@@ -13,30 +13,27 @@
 				</div>
 			{% endfor %}
 			<div class="flex justify-between align-middle items-center">
-				<h1 class="py-2 font-semibold text-2xl">Players leaderboard ({{ players.getTotalItemCount }})
+				<h1 class="py-2 font-semibold text-2xl">Users ({{ users.getTotalItemCount }})
 				</h1>
-				<a class="text-white bg-gradient-to-br from-amber-600 to-orange-900  hover:from-amber-700 hover:to-orange-950 focus:ring-4 focus:outline-none focus:ring-orange-950 dark:focus:ring-amber-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center" href="{{ path('player.new') }}">
-					Create a player
-				</a>
+				{# <a class="text-white bg-gradient-to-br from-amber-600 to-orange-900  hover:from-amber-700 hover:to-orange-950 focus:ring-4 focus:outline-none focus:ring-orange-950 dark:focus:ring-amber-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center" href="{{ path('user.new') }}">
+																	Create a user
+																</a> #}
 			</div>
 
 			<ul class="divide-y divide-gray-200 dark:divide-gray-700">
-				{% for player in players %}
+				{% for user in users %}
 					<li>
-						<a href="{{ path('player.edit', {'id': player.id}) }}" class="flex items-center space-x-4 hover:bg-gray-800 p-2">
-							<div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-								{{ (app.request.query.get('page')|default('1') - 1) * 10 + loop.index }}
-							</div>
+						<a href="{{ path('user.edit', {'username': user.username}) }}" class="flex items-center space-x-4 hover:bg-gray-800 p-2">
 							<div class="flex-1 min-w-0">
 								<p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-									{{ player.pseudo }}
+									{{ user.username }}
 								</p>
 								<p class="text-sm text-gray-500 truncate dark:text-gray-400">
-									{{ player.email }}
+									{{ user.email }}
 								</p>
 							</div>
 							<div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-								{{ player.totalPoints }}
+								{{ user.numberOfPoints|default('0') }}
 								points
 							</div>
 						</a>
@@ -44,7 +41,7 @@
 				{% endfor %}
 			</ul>
 			<div class="navigation flex justify-center text-gray-900 pb-6">
-				{{ knp_pagination_render(players) }}
+				{{ knp_pagination_render(users) }}
 			</div>
 		</div>
 	</div>

@@ -58,9 +58,9 @@
 				{{ form_errors(form.email, {'attr' : { 'class': 'text-red-300 text-sm font-semibold'}})}}
 			</div>
 			{{ form_row(form.numberOfPoints) }}
-			{{ form_row(form.plainPassword) }}
+			{{ form_row(form.plainPassword, {'attr' : { 'placeholder': '********'}}) }}
 			<div class="flex justify-start mb-2 px-3">
-				<a href="{{ path('user.password', {'id': userID}) }}" class="text-sm text-amber-500 hover:underline hover:text-amber-600">
+				<a href="{{ path('user.password', {'username': username}) }}" class="text-sm text-amber-500 hover:underline hover:text-amber-600">
 					Change password
 				</a>
 			</div>

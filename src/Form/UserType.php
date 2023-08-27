@@ -22,10 +22,9 @@ class UserType extends AbstractType
                 'username',
                 TextType::class,
                 ['label' => 'Username'],
-                ['attr' => [
+                ['attr_value' => [
                     'minlength' => '2',
                     'maxlength' => '50',
-                    'placeholder' => 'johnDoe01'
                 ]],
                 ['constraints' => [
                     new Assert\NotBlank(),
@@ -37,8 +36,7 @@ class UserType extends AbstractType
                 EmailType::class,
                 ['label' => 'Email address'],
                 ['attr' => [
-                    'maxlength' => '50',
-                    'placeholder' => 'mail@example.com'
+                    'maxlength' => 50,
                 ]],
                 ['constraints' => [
                     new Assert\NotBlank(),
@@ -60,7 +58,6 @@ class UserType extends AbstractType
                 ['attr' => [
                     'maxlength' => '50',
                     'placeholder' => '********',
-                    'required' => true
                 ]],
                 ['constraints' => [
                     new Assert\NotBlank(),

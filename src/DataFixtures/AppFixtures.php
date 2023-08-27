@@ -34,6 +34,15 @@ class AppFixtures extends Fixture
             $manager->persist($player);
         }
 
+        // Set Admin
+        $user = new User();
+        $user->setUsername('admin')
+            ->setEmail($_ENV['ADMIN_EMAIL'] ?? 'mail@example.com')
+            ->setRoles(['ROLE_ADMIN'])
+            ->setPlainPassword($_ENV['ADMIN_PASSWORD'] ?? 'password');
+
+        $manager->persist($user);
+
         for ($i = 1; $i <= 10; $i++) {
             $user = new User();
             $user->setUsername($this->faker->userName())
