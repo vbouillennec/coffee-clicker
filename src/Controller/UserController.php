@@ -63,6 +63,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('pages/user/edit.html.twig', [
+            'userID' => $user->getId(),
             'form' => $form->createView()
         ]);
     }
@@ -118,6 +119,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('pages/user/password.html.twig', [
+            'userID' => $user->getId(),
             'form' => $form->createView()
         ]);
     }
