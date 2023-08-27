@@ -19,6 +19,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $numberOfPoints = 0;
     }
 
     #[ORM\Id]
@@ -44,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private ?string $email = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: 'integer', nullable: true)]
     #[Assert\PositiveOrZero]
     private ?int $numberOfPoints = null;
 
@@ -58,7 +59,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Assert\NotNull]
     private ?string $password = null;
 
     #[ORM\Column]

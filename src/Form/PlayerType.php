@@ -26,7 +26,6 @@ class PlayerType extends AbstractType
           'maxlength' => '50',
           'placeholder' => 'amazingPseudo01'
         ]],
-        ['label_attr' => 'form-label px-4'],
         ['constraints' => [
           new Assert\NotBlank(),
           new Assert\Length(['min' => 2, 'max' => 50]),
