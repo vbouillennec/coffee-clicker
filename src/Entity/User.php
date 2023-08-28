@@ -2,23 +2,27 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use App\Repository\UserRepository;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 #[ORM\Table(name: '`user`')]
 #[UniqueEntity(fields: 'username', message: 'There is already a user with this {{ label }}')]
 #[UniqueEntity(fields: 'email', message: 'There is already a user with this {{ label }}')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[Vich\Uploadable]
+class User implements UserInterface, PasswordAuthenticatedUserInterface //, \Serializable
 {
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
         $numberOfPoints = 0;
     }
 
@@ -49,6 +53,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\PositiveOrZero]
     private ?int $numberOfPoints = null;
 
+    // NOTE: This is not a mapped field of entity metadata, just a simple property.
+    #[Vich\UploadableField(mapping: 'users_avatar', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
+
     #[ORM\Column]
     private array $roles = [];
 
@@ -63,6 +74,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[Assert\NotNull]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    #[Assert\NotNull]
+    private ?\DateTimeImmutable $updatedAt = null;
 
 
     public function getId(): ?int
@@ -104,6 +119,41 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->numberOfPoints = $numberOfPoints;
 
         return $this;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 
     /**
@@ -183,8 +233,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
     public function isSameUser(User $user): string
     {
         return $this->getId() === $user->getId();
+    }
+
+    public function isAdmin(): bool
+    {
+        return in_array('ROLE_ADMIN', $this->getRoles());
     }
 }

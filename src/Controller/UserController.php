@@ -48,9 +48,12 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($passwordHasher->isPasswordValid($user, $form->getData()->getPlainPassword())) {
                 $user = $form->getData();
+                $user->setUpdatedAt(new \DateTimeImmutable());
 
                 $manager->persist($user);
                 $manager->flush();
+
+                $user->setImageFile(null);
 
                 $this->addFlash(
                     'success',
@@ -68,6 +71,7 @@ class UserController extends AbstractController
 
         return $this->render('pages/user/edit.html.twig', [
             'username' => $user->getUsername(),
+            'user' => $user,
             'form' => $form->createView()
         ]);
     }
@@ -88,6 +92,7 @@ class UserController extends AbstractController
                 $user->setPlainPassword(
                     $form->getData()['newPassword']
                 );
+                $user->setUpdatedAt(new \DateTimeImmutable());
 
                 $manager->persist($user);
                 $manager->flush();

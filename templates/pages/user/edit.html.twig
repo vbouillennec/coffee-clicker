@@ -8,7 +8,7 @@
 
 {% block body %}
 	<div class="flex row flex-col justify-center items-center text-white">
-		<div class="col w-full md:w-2/3 lg:w-1/2 xl:w-1/3">
+		<div class="col w-full md:w-2/3 lg:w-1/2 xl:w-1/3 mb-8">
 			<h1 class="p-4 dark:text-white font-semibold text-2xl flex justify-center">
 				Edit User
 			</h1>
@@ -58,6 +58,12 @@
 				{{ form_errors(form.email, {'attr' : { 'class': 'text-red-300 text-sm font-semibold'}})}}
 			</div>
 			{{ form_row(form.numberOfPoints) }}
+			<div class="mb-2 px-3">
+				{{ form_label(form.imageFile) }}
+
+				<img class="rounded-full w-24 h-24 mb-2" src="{{ vich_uploader_asset(user, 'imageFile')|default('/images/profile.jpg') }}" alt="user avatar">
+				{{ form_widget(form.imageFile) }}
+			</div>
 			{{ form_row(form.plainPassword, {'attr' : { 'placeholder': '********'}}) }}
 			<div class="flex justify-start mb-2 px-3">
 				<a href="{{ path('user.password', {'username': username}) }}" class="text-sm text-amber-500 hover:underline hover:text-amber-600">

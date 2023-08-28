@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RegistrationType extends AbstractType
 {
@@ -52,6 +53,18 @@ class RegistrationType extends AbstractType
                 NumberType::class,
                 ['label' => 'Number of points'],
                 ['constraints' => [new Assert\PositiveOrZero()]]
+            )
+            ->add(
+                'imageFile',
+                VichImageType::class,
+                [
+                    'label' => 'Profile picture',
+                    'required' => false,
+                    'allow_delete' => true,
+                    'download_uri' => false,
+                    'image_uri' => false,
+                    'asset_helper' => true,
+                ]
             )
             ->add(
                 'plainPassword',

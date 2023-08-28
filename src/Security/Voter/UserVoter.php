@@ -52,6 +52,6 @@ class UserVoter extends Voter
     private function canEdit(User $requestedUser, User $user): bool
     {
         // this assumes that the Post object has a `getOwner()` method
-        return $user->isSameUser($requestedUser);
+        return $user->isSameUser($requestedUser) || $user->isAdmin();
     }
 }
