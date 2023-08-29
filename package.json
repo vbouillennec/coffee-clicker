@@ -4,7 +4,6 @@
         "worker-timers": "^7.0.75"
     },
     "devDependencies": {
-        "@types/animejs": "^3.1.7",
         "@babel/core": "^7.17.0",
         "@babel/preset-env": "^7.16.0",
         "@babel/preset-react": "^7.22.5",
@@ -12,6 +11,7 @@
         "@symfony/stimulus-bridge": "^3.2.0",
         "@symfony/ux-react": "file:vendor/symfony/ux-react/assets",
         "@symfony/webpack-encore": "^4.0.0",
+        "@types/animejs": "^3.1.7",
         "autoprefixer": "^10.4.15",
         "core-js": "^3.23.0",
         "postcss": "^8.4.28",

@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        color: rgb(120, 81, 31);
+        --background-start-rgb: 230, 219, 194;
+        --background-end-rgb: 120, 81, 31;
+    }
+}
+
+body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+            to bottom,
+            rgb(var(--background-start-rgb)),
+            rgb(var(--background-end-rgb))
+        )
+        rgb(var(--background-start-rgb));
+
+    overflow: hidden;
+}
