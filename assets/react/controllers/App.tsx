@@ -117,12 +117,13 @@ function App() {
             />
             <main
                 className="
-      flex 
-      min-h-screen 
-      flex-col 
-      items-center 
-      justify-center 
-      gap-12 p-24"
+                flex 
+                min-h-screen 
+                flex-col 
+                items-center 
+                justify-center 
+                gap-12 p-24
+              "
             >
                 <Counter count={count} />
                 <CoffeeLineUp handleClick={handleClick} />

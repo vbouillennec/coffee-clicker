@@ -8,31 +8,31 @@
 	<div class="flex flex-col items-center align-center justify-center text-white">
 		<div class="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-4 space-y-4">
 			{% for message in app.flashes('success') %}
-				<div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+				<div class="p-4 mb-4 text-sm  rounded-lg bg-gray-800 text-green-400" role="alert">
 					<span class="font-medium">{{ message }}</span>
 				</div>
 			{% endfor %}
 			<div class="flex justify-between align-middle items-center">
 				<h1 class="py-2 font-semibold text-2xl">Users ({{ users.getTotalItemCount }})
 				</h1>
-				{# <a class="text-white bg-gradient-to-br from-amber-600 to-orange-900  hover:from-amber-700 hover:to-orange-950 focus:ring-4 focus:outline-none focus:ring-orange-950 dark:focus:ring-amber-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center" href="{{ path('user.new') }}">
-																	Create a user
-																</a> #}
+				{# <a class="text-white bg-gradient-to-br from-amber-600 to-orange-900  hover:from-amber-700 hover:to-orange-950 focus:ring-4 focus:outline-none focus:ring-amber-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center" href="{{ path('user.new') }}">
+																									Create a user
+																								</a> #}
 			</div>
 
-			<ul class="divide-y divide-gray-200 dark:divide-gray-700">
+			<ul class="divide-y divide-gray-700">
 				{% for user in users %}
 					<li>
 						<a href="{{ path('user.edit', {'username': user.username}) }}" class="flex items-center space-x-4 hover:bg-gray-800 p-2">
 							<div class="flex-1 min-w-0">
-								<p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+								<p class="text-sm font-medium truncate text-white">
 									{{ user.username }}
 								</p>
-								<p class="text-sm text-gray-500 truncate dark:text-gray-400">
+								<p class="text-sm truncate text-gray-400">
 									{{ user.email }}
 								</p>
 							</div>
-							<div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+							<div class="inline-flex items-center text-base font-semibold text-white">
 								{{ user.numberOfPoints|default('0') }}
 								points
 							</div>

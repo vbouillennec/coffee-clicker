@@ -11,36 +11,36 @@
 {% endblock form_errors %}
 
 {% block form_label %}
-	{% set label_class = label_class|default('block mb-2 text-sm font-medium text-gray-900 dark:text-white') %}
+	{% set label_class = label_class|default('block mb-2 text-sm font-medium text-gray-900 text-white') %}
 	{{ parent() }}
 {% endblock form_label %}
 
 {% block form_widget %}
-	{% set widget_class = widget_class|default('block text-sm rounded-lg dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full p-2.5') %}
+	{% set widget_class = widget_class|default('block text-sm rounded-lg bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full p-2.5') %}
 	{{ parent() }}
 {% endblock form_widget %}
 
 {% block password_widget %}
-	{% set widget_class = widget_class|default('block text-sm rounded-lg dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full p-2.5') %}
+	{% set widget_class = widget_class|default('block text-sm rounded-lg bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full p-2.5') %}
 	{{ parent() }}
 {% endblock password_widget %}
 
 {% block form_widget_simple %}
-	{% set widget_class = widget_class|default('block text-sm rounded-lg dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full p-2.5') %}
+	{% set widget_class = widget_class|default('block text-sm rounded-lg bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full p-2.5') %}
 	{{ parent() }}
 {% endblock form_widget_simple %}
 
 {% block form_widget_compound %}
-	{% set widget_class = widget_class|default('block text-sm rounded-lg dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full p-2.5') %}
+	{% set widget_class = widget_class|default('block text-sm rounded-lg bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full p-2.5') %}
 	{{ parent() }}
 {% endblock form_widget_compound %}
 
 {% block collection_widget  %}
-	{% set widget_class = widget_class|default('block text-sm rounded-lg dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full p-2.5') %}
+	{% set widget_class = widget_class|default('block text-sm rounded-lg bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full p-2.5') %}
 	{{ parent() }}
 {% endblock collection_widget  %}
 
 {% block widget_container_attributes  %}
-	{% set widget_class = widget_class|default('block text-sm rounded-lg dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full p-2.5') %}
+	{% set widget_class = widget_class|default('block text-sm rounded-lg bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full p-2.5') %}
 	{{ parent() }}
 {% endblock widget_container_attributes  %}
