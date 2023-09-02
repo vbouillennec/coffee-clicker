@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Contact Form Submission</title>
+	</head>
+	<body class="bg-gray-900 ">
+		<h2 class="text-gray-400 text-2xl">
+			Contact Form Submission from
+			{{ contact.fullName }}
+		</h2>
+
+		<p>
+			<strong>Email address:</strong>
+			<span>{{ contact.email }}</span>
+		</p>
+		<p>
+			<strong>Subject:</strong>
+			<span>{{ contact.subject }}</span>
+		</p>
+		<hr>
+		<p>{{ contact.message }}</p>
+	</body>
+</html>
