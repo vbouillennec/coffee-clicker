@@ -72,7 +72,7 @@ class RegistrationType extends AbstractType
                 [
                     'type' => PasswordType::class,
                     'invalid_message' => 'The password fields must match.',
-                    'options' => ['attr' => ['class' => 'block text-sm rounded-lg dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full p-2.5']],
+                    'options' => ['attr' => ['class' => 'block text-sm rounded-lg bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full p-2.5']],
                     'required' => true,
                     'first_options'  => ['label' => 'Password'],
                     'second_options' => ['label' => 'Repeat Password'],

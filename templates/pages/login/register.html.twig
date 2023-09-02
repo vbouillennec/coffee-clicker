@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form 'form/theme.html.twig' %}
-
 {% block title %}
 	Coffee Clicker - Register
 {% endblock %}
@@ -29,7 +27,7 @@
 							{
 								'placeholder' : 'johnDoe_01', 
 								'class': 'block text-sm rounded-lg bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 pl-10'
-								}
+							}
 					})}}
 				</div>
 				{{ form_errors(form.username, {'attr' : { 'class': 'text-red-300 text-sm font-semibold'}})}}
@@ -48,7 +46,6 @@
 						{'placeholder' : 'mail@example.com',
 						'class': 'block text-sm rounded-lg bg-gray-600 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 pl-10'
 						}})}}
-
 				</div>
 				{{ form_errors(form.email, {'attr' : { 'class': 'text-red-300 text-sm font-semibold'}})}}
 			</div>

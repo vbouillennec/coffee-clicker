@@ -23,11 +23,16 @@
 	color: #535bf2;
 } */
 
+* {
+	box-sizing: border-box;
+}
+
+html,
 body {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	height: 100vh;
-	width: 100vw;
+	/* width: 100vw; */
 }
 
 h1 {
